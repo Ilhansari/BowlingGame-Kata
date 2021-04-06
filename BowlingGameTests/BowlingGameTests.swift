@@ -10,14 +10,20 @@ import XCTest
 
 final class Game {
 
-    private var theScore = 0
+    private var rolls = [Int](repeating: 0, count: 21)
+    private var currentRoll = 0
 
     func roll(_ pins: Int) {
-        theScore += pins
+        rolls[currentRoll] = pins
+        currentRoll += 1
     }
 
     func score() -> Int {
-        return theScore
+        var score = 0
+        for i in 0...20 {
+            score += rolls[i]
+        }
+        return score
     }
 }
 
@@ -50,4 +56,12 @@ final class BowlingGameTests: XCTestCase {
         rollMany(pins: 1, times: 20)
         XCTAssertEqual(game.score(), 20)
     }
+
+//    func testOneSpare() {
+//        game.roll(5)
+//        game.roll(5)
+//        game.roll(3)
+//        rollMany(pins: 0, times: 17)
+//        XCTAssertEqual(game.score(), 16)
+//    }
 }
