@@ -20,8 +20,15 @@ final class Game {
 
     func score() -> Int {
         var score = 0
-        for i in 0...20 {
-            score += rolls[i]
+        var i = 0
+        for _ in 1...10 {
+            if rolls[i] + rolls[i+1] == 10 {
+                score += 10 + rolls[i+2]
+                i += 2
+            } else {
+                score += rolls[i] + rolls[i+1]
+                i += 2
+            }
         }
         return score
     }
@@ -57,11 +64,11 @@ final class BowlingGameTests: XCTestCase {
         XCTAssertEqual(game.score(), 20)
     }
 
-//    func testOneSpare() {
-//        game.roll(5)
-//        game.roll(5)
-//        game.roll(3)
-//        rollMany(pins: 0, times: 17)
-//        XCTAssertEqual(game.score(), 16)
-//    }
+    func testOneSpare() {
+        game.roll(5)
+        game.roll(5)
+        game.roll(3)
+        rollMany(pins: 0, times: 17)
+        XCTAssertEqual(game.score(), 16)
+    }
 }
