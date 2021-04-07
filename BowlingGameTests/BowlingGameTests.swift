@@ -22,7 +22,10 @@ final class Game {
         var score = 0
         var roll = 0
         for _ in 1...10 {
-            if isSpare(roll) {
+            if rolls[roll] == 10 {
+                score += 10 + rolls[roll + 1] + rolls[roll + 2]
+                roll += 1
+            } else if isSpare(roll) {
                 score += 10 + rolls[roll + 2]
                 roll += 2
             } else {
@@ -68,11 +71,23 @@ final class BowlingGameTests: XCTestCase {
         XCTAssertEqual(game.score(), 20)
     }
 
+    private func rollSpare() {
+        game.roll(5)
+        game.roll(5)
+    }
+
     func testOneSpare() {
-        game.roll(5)
-        game.roll(5)
+        rollSpare()
         game.roll(3)
         rollMany(pins: 0, times: 17)
         XCTAssertEqual(game.score(), 16)
+    }
+
+    func testOneStrike() {
+        game.roll(10)
+        game.roll(3)
+        game.roll(4)
+        rollMany(pins: 0, times: 16)
+        XCTAssertEqual(game.score(), 24)
     }
 }
