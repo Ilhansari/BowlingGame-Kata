@@ -22,7 +22,7 @@ final class Game {
         var score = 0
         var roll = 0
         for _ in 1...10 {
-            if rolls[roll] == 10 {
+            if isStrike(roll) {
                 score += 10 + strikeBonus(roll)
                 roll += 1
             } else if isSpare(roll) {
@@ -34,6 +34,10 @@ final class Game {
             }
         }
         return score
+    }
+
+    private func isStrike(_ roll: Int) -> Bool {
+        return rolls[roll] == 10
     }
 
     private func isSpare(_ roll: Int) -> Bool {
@@ -88,6 +92,10 @@ final class BowlingGameTests: XCTestCase {
         game.roll(5)
     }
 
+    private func rollStrike() {
+        game.roll(10)
+    }
+
     func testOneSpare() {
         rollSpare()
         game.roll(3)
@@ -96,10 +104,15 @@ final class BowlingGameTests: XCTestCase {
     }
 
     func testOneStrike() {
-        game.roll(10)
+        rollStrike()
         game.roll(3)
         game.roll(4)
         rollMany(pins: 0, times: 10)
         XCTAssertEqual(game.score(), 24)
+    }
+
+    func testPerfectGame() {
+        rollMany(pins: 10, times: 12)
+        XCTAssertEqual(game.score(), 300)
     }
 }
