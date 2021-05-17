@@ -78,11 +78,13 @@ final class BowlingGameTests: XCTestCase {
 
     func testGutterGame() {
         rollMany(pins: 0, times: 20)
+
         XCTAssertEqual(game.score(), 0)
     }
 
     func testAllOnes() {
         rollMany(pins: 1, times: 20)
+
         XCTAssertEqual(game.score(), 20)
     }
 
@@ -99,6 +101,7 @@ final class BowlingGameTests: XCTestCase {
         rollSpare()
         game.roll(3)
         rollMany(pins: 0, times: 17)
+
         XCTAssertEqual(game.score(), 16)
     }
 
@@ -107,11 +110,13 @@ final class BowlingGameTests: XCTestCase {
         game.roll(3)
         game.roll(4)
         rollMany(pins: 0, times: 10)
+
         XCTAssertEqual(game.score(), 24)
     }
 
     func testPerfectGame() {
         rollMany(pins: 10, times: 12)
+        
         XCTAssertEqual(game.score(), 300)
     }
 }
