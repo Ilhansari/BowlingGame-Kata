@@ -9,6 +9,7 @@
 import XCTest
 
 final class Game {
+
     private var rolls = [Int](repeating: 0, count: 21)
     private var currentRoll = 0
 
@@ -62,6 +63,7 @@ final class BowlingGameTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
+
         game = Game()
     }
 
